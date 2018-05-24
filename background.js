@@ -48,6 +48,11 @@ chrome.extension.onMessage.addListener(
             sendResponse({resp: "tab open"});
         }
 
+        if(request.msg == "newtabBack"){
+            chrome.tabs.create({active:false})
+            sendResponse({resp: "tab open (back)"});
+        }
+
         if(request.msg == "closetab"){
             chrome.tabs.getSelected(null, 
             function(tab){

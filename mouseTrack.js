@@ -209,6 +209,17 @@ function exeRock()
     }
 }
 
+function openNewBackgroundTab(link){
+    // https://stackoverflow.com/questions/10812628/open-a-new-tab-in-the-background
+    var a = document.createElement("a");
+    a.href = link;
+    var evt = document.createEvent("MouseEvents");
+    //the tenth parameter of initMouseEvent sets ctrl key
+    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+                                true, false, false, false, 0, null);
+    a.dispatchEvent(evt);
+}
+
 function exeFunc()
 {
     // console.log('exeFunc '+move)
@@ -241,6 +252,26 @@ function exeFunc()
             }
             else{
                 window.open(link)
+            }
+        }
+        else if(action == "newtabBack")
+        {
+            if(link == null){
+                chrome.extension.sendMessage({msg: "newtabBack"}, 
+                    function(response)
+                    {
+                        if(response != null)
+                            console.log(response.resp);
+                        else
+                        {
+                            console.log('problem executing open tab (back)')
+                            if(chrome.extension.lastError)
+                                console.log(chrome.extension.lastError.message)
+                        }
+                    });
+            }
+            else{
+                openNewBackgroundTab(link);
             }
         }
         else if(action == "closetab"){

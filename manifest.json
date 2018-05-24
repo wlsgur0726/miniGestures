@@ -1,5 +1,5 @@
 {
-"name": "miniGestures",
+"name": "miniGestures2",
 "manifest_version": 2,
   "permissions": ["tabs","storage"],
   "background": {
